@@ -1,2 +1,35 @@
 # 경기도 매그너스 칼슨 vs 목동 히카루 나카무라(real)
 
+<img src="https://private-user-images.githubusercontent.com/149575342/452362348-bdc08b38-d8e3-49de-86fa-6f3941f09f3a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDkyMjMxNDcsIm5iZiI6MTc0OTIyMjg0NywicGF0aCI6Ii8xNDk1NzUzNDIvNDUyMzYyMzQ4LWJkYzA4YjM4LWQ4ZTMtNDlkZS04NmZhLTZmMzk0MWYwOWYzYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYwNlQxNTE0MDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03MDhlMzhlYThmOThjZjY4MWNmYmMzOGI5OGE4OTNmZmI3OWVlY2JjZWQ0ZWY1NDYxM2JiYzAxZGUwYWU0YWMyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.EZc08uRX8_3OUg6jnR5VrcqctVgGAI-PJcxiwGajmWQ" width="250" height="250"/>
+
+## 나이트투어
+
+이 메뉴는 나이트투어를 풉니다. 나이트투어는, NxN크기의 체스판 위에서, 나이트가 같은 칸을 두 번 이상 밟지 않고 모든 칸을 한 번씩 순회하는 경로를 찾는 문제입니다. 이를 풀기 위해 [Warnsdorf's rule](https://en.wikipedia.org/wiki/Knight%27s_tour#Warnsdorf's_rule)를 사용했습니다. 
+
+이 알고리즘은 [휴리스틱 알고리즘](https://en.wikipedia.org/wiki/Heuristic_(computer_science))입니다. 휴리스틱 알고리즘을 간단히 말하자면, '굳이 완벽할 필요는 없어서 이거 하니까 되더라' 하는 방법입니다. 본론으로 돌아와, Warnsdorf's rule은 간단한 아이디어로 진행됩니다. 나이트는 갈 수 있는 칸들이 있습니다. 이를 후보 칸이라고 부릅시다. 아이디어는, 후보 칸으로 갔을때 더 갈 수 있는 또 다른 후보 칸(후행 후보 칸) 중 개수가 가장 작은 칸을 선택하는 겁니다. 즉, 가능한 앞으로 갈 곳이 적을 칸부터 미리 차지해서 뒤에 막혔을 때 대안이 많이 남도록 하자는 발상입니다. 이렇게 하면 나이트가 더이상 진행을 못해 도중에 못돌아오는 상황을 방지할 수 있습니다.
+
+이 알고리즘으로도 충분히 나이트투어를 해결할 수 있지만, 여기서 더 정확히 풀기 위해 [Arnd Roth](https://stackoverflow.com/a/24738975)를 씁니다. 이 아이디어를 사용하는 이유는, 후행 후보 칸의 개수가 같아 동률이라면, 기존에는 임의의 후보 칸을 골랐지만, 그렇게 되면 다시 갈 수 있는 칸이 없어지는 확률이 제법 높아지기 때문입니다. Arnd Roth는 이를 타파하기 위해, 후행 후보수 칸의 개수가 같다면, 체스판의 정중앙에서 가장 먼 칸을 선택하라는 겁니다. 나이트투어가 가지 못한 칸은 모서리, 구석이 아닌 중간 막다른 영역(병목)이 될 가능성이 제일 높은 중앙 근처이기 때문입니다. 이렇게 한다면 나이트투어가 제대로 끝날 확률이 더 커집니다.
+
+Warnsdorf's rule을 구현하기 위해, cdeg함수를 구현했습니다.
+```py
+def cdeg(r, c, n, vis):
+    ret = 0
+    for i in range(8):
+        nr = r + dx[i]
+        nc = c + dy[i]
+        if 0 <= nr < n and 0 <= nc < n and not vis[nr][nc]:
+            ret += 1
+    return ret
+```
+이 함수는 나이트가 r,c칸에 있을 때, 후행 후보 칸의 개수를 계산합니다. 이를 응용해서 Warnsdorf's rule 구현을 끝마쳤습니다.
+
+Arnd Roth의 구현은 이렇게 했습니다. 먼저, 판의 중앙점인 mid(=n+1)를 구합니다. 만일 후행 후보의 칸이 동률이 났다면, 거리를 계산합니다.
+```py
+_row = 2*row - mid
+_col = 2*col - mid
+score = _row*_row + _col*_col
+```
+
+여기서, mid=n+1이므로 (row, col)이 체스판 중앙 ((n+1)/2, (n+1)/2)에서 얼마나 떨어져 있는지 유킬리드 거리의 제곱꼴로 표현할 수 있습니다. score의 값이 크면 클수록 중앙에서 멀리 떨어진 칸으로 간주합니다. 만일 score값이 같다면 [사전순](https://ko.wikipedia.org/wiki/%EC%82%AC%EC%A0%84%EC%8B%9D_%EC%88%9C%EC%84%9C)으로 먼저인 칸을 우선으로 합니다.
+
+이를 간단히 융합하고 구현해 나이트투어의 구현을 완성시켰습니다.
