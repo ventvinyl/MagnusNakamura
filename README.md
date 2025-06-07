@@ -2,6 +2,18 @@
 
 <img src="https://private-user-images.githubusercontent.com/149575342/452362348-bdc08b38-d8e3-49de-86fa-6f3941f09f3a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDkyMjMxNDcsIm5iZiI6MTc0OTIyMjg0NywicGF0aCI6Ii8xNDk1NzUzNDIvNDUyMzYyMzQ4LWJkYzA4YjM4LWQ4ZTMtNDlkZS04NmZhLTZmMzk0MWYwOWYzYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYwNlQxNTE0MDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03MDhlMzhlYThmOThjZjY4MWNmYmMzOGI5OGE4OTNmZmI3OWVlY2JjZWQ0ZWY1NDYxM2JiYzAxZGUwYWU0YWMyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.EZc08uRX8_3OUg6jnR5VrcqctVgGAI-PJcxiwGajmWQ" width="250" height="250"/>
 
+# 알고리즘 설명
+
+## KPvK
+
+WIP
+
+전처리 후 $O(1)$에 작동합니다.
+
+## 스도쿠
+
+WIP
+
 ## 나이트투어
 
 이 메뉴는 나이트투어를 풉니다. 나이트투어는, NxN크기의 체스판 위에서, 나이트가 같은 칸을 두 번 이상 밟지 않고 모든 칸을 한 번씩 순회하는 경로를 찾는 문제입니다. 이를 풀기 위해 [Warnsdorf's rule](https://en.wikipedia.org/wiki/Knight%27s_tour#Warnsdorf's_rule)를 사용했습니다. 
@@ -34,8 +46,16 @@ score = _row*_row + _col*_col
 
 이를 간단히 조합하고 구현해 나이트투어의 구현을 완성시켰습니다.
 
+$O(N^2)$에 작동합니다.
+
 ## 워들
 
 알고리즘은 별게 없습니다.
 
 컴퓨터가 추측한 단어와 실제 정답을 비교해 각각의 글자가 일치하면 2, 다른 위치에 있으면 1, 없으면 0을 만듭니다(피드백). 피드백을 가지고 남아 있는 모든 후보 단어에 대해 동일한 피드백을 생성하면서 실제로 받은 피드백과 일치하는 단어만 골라 새로운 후보 리스트를 만듭니다. 그 후, [정보 엔트로피](https://ko.wikipedia.org/wiki/%EC%A0%95%EB%B3%B4_%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC)를 계산해 가장 엔트로피가 높은 후보 단어를 새로운 추측 단어로 만듭니다. 엔트로피가 높은 단어를 쓰는 이유는 최대한 많은 정보를 얻어 빨리 워들을 풀기 위함입니다.
+
+G를 가능한 단어의 개수, C를 남아 있는 정답 후보 수라 할 때 $O(G\times C)$에 작동합니다.
+
+## 틱택토
+
+WIP
