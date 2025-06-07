@@ -7,6 +7,9 @@ from tqdm import tqdm
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 clear_cmd = "cls" if os.name == "nt" else "clear"
+
+# ////------------------ 엔드게임 ------------------////
+
 id_map = {}
 state_n = 0
 
@@ -292,6 +295,8 @@ def KPvK():
         white_moves = (plies + 1) // 2
         print(white_moves)
 
+# ////------------------ 스도쿠 ------------------////
+
 class Node:
     def __init__(self, row=-1, col_header=None):
         self.left = self.right = self.up = self.down = self
@@ -437,6 +442,8 @@ def sudoku():
         for r in range(9):
             print(" ".join(map(str, board[r])))
 
+# ////------------------ 나이트 투어 ------------------////
+
 dx = [2, 1, -1, -2, -2, -1, 1, 2]
 dy = [1, 2, 2, 1, -1, -2, -2, -1]
 INF = 10**9
@@ -526,26 +533,26 @@ ex = "\033[33m"
 warn = "\033[91m"
 intr = "\033[96m"
 
+# ////------------------ 워들 ------------------////
+
 def load_words(filename):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(script_dir, filename)
     with open(file_path, 'r', encoding='utf-8') as f:
-        words = [line.strip() for line in f if line.strip()]
-    return words
+        return [line.strip() for line in f if line.strip()]
 
 def get_feedback(guess, solution):
     feedback = ['0'] * 5
     solution_chars = list(solution)
-    used = [False] * 5  
+    used = [False] * 5
 
-    
     for i in range(5):
         if guess[i] == solution[i]:
             feedback[i] = '2'
             used[i] = True
 
     for i in range(5):
-        if feedback[i] == '0':  
+        if feedback[i] == '0':
             for j in range(5):
                 if not used[j] and guess[i] == solution_chars[j]:
                     feedback[i] = '1'
@@ -555,40 +562,31 @@ def get_feedback(guess, solution):
     return ''.join(feedback)
 
 def filter_candidates(candidates, guess, feedback):
-    new_list = []
-    for word in candidates:
-        if get_feedback(guess, word) == feedback:
-            new_list.append(word)
-    return new_list
+    return [w for w in candidates if get_feedback(guess, w) == feedback]
 
 def compute_entropy(guess, candidates):
-    pattern_counts = {}
+    counts = {}
     total = len(candidates)
-
     for sol in candidates:
-        pattern = get_feedback(guess, sol)
-        pattern_counts[pattern] = pattern_counts.get(pattern, 0) + 1
+        pat = get_feedback(guess, sol)
+        counts[pat] = counts.get(pat, 0) + 1
 
-    entropy = 0.0
-    for count in pattern_counts.values():
-        p = count / total
-        entropy -= p * math.log2(p)
-    return entropy
+    h = 0.0
+    for c in counts.values():
+        p = c / total
+        h -= p * math.log2(p)
+    return h
 
 def choose_best_guess(all_guesses, candidates):
     if len(candidates) == 1:
         return candidates[0], 0.0
 
-    best_word = None
-    best_entropy = -1.0
-
-    for guess in all_guesses:
-        e = compute_entropy(guess, candidates)
-        if e > best_entropy:
-            best_entropy = e
-            best_word = guess
-
-    return best_word, best_entropy
+    best, besth = None, -1.0
+    for g in all_guesses:
+        h = compute_entropy(g, candidates)
+        if h > besth:
+            besth, best = h, g
+    return best, besth
 
 def wordle():
     try:
@@ -598,15 +596,13 @@ def wordle():
         return
 
     candidates = all_words.copy()
-
     guess = "salet"
-    for turn in range(1, 7):  
-        if turn == 1:
-            entropy = compute_entropy(guess, candidates)
-        else:
-            guess, entropy = choose_best_guess(all_words, candidates)
+
+    for turn in range(1, 7):
+        if turn > 1:
+            guess, _ = choose_best_guess(all_words, candidates)
+
         print(f"? {guess}")
-        query()
         feedback = input().strip()
         if feedback == '22222':
             print(f"! {guess}")
@@ -614,13 +610,15 @@ def wordle():
 
         candidates = filter_candidates(candidates, guess, feedback)
         if len(candidates) == 1:
-            print(f"! {guess}")
+            print(f"! {candidates[0]}")
             return
         if not candidates:
             print("쿼리 중 하나가 올바르지 않습니다.")
             return
 
     print("실패했습니다.")
+
+# ////------------------ 틱택토 ------------------////
 
 def evaluate_ttt(board):
     for i in range(3):
