@@ -1,6 +1,6 @@
 # 경기도 매그너스 칼슨 vs 목동 히카루 나카무라(real)
 
-<img src="https://private-user-images.githubusercontent.com/149575342/452362348-bdc08b38-d8e3-49de-86fa-6f3941f09f3a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDkyMjMxNDcsIm5iZiI6MTc0OTIyMjg0NywicGF0aCI6Ii8xNDk1NzUzNDIvNDUyMzYyMzQ4LWJkYzA4YjM4LWQ4ZTMtNDlkZS04NmZhLTZmMzk0MWYwOWYzYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYwNlQxNTE0MDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03MDhlMzhlYThmOThjZjY4MWNmYmMzOGI5OGE4OTNmZmI3OWVlY2JjZWQ0ZWY1NDYxM2JiYzAxZGUwYWU0YWMyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.EZc08uRX8_3OUg6jnR5VrcqctVgGAI-PJcxiwGajmWQ" width="250" height="250"/>
+<img src="https://github.com/user-attachments/assets/b16b7edc-94ad-4f9b-9580-d23333bab542" width="250" height="250"/>
 
 # 알고리즘 설명
 
